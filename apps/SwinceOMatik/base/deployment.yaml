@@ -23,11 +23,11 @@ spec:
           envFrom:
             - secretRef:
                 name: swinceomatik-secrets
-          readinessProbe:
-            exec:
-              command:
-              - cat
-              - /tmp/ready
-            initialDelaySeconds: 30
-            periodSeconds: 10
+          #readinessProbe:
+          #  exec:
+          #    command:
+          #    - cat
+          #    - /tmp/ready
+          #  initialDelaySeconds: 30
+          #  periodSeconds: 10
 
