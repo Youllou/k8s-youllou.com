@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql-statefulset
+  name: mysql-svc
   namespace: swinceomatik
 spec:
   selector:
-    app: mysql-statefulset
+    app: mysql-svc
   ports:
     - port: 3306
       targetPort: 3306
