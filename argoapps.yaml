@@ -8,7 +8,7 @@ metadata:
 spec:
   project: ovh-vps
   source:
-    repoURL:git@github.com:Youllou/k8s-youllou.com.git
+    repoURL: git@github.com:Youllou/k8s-youllou.com.git
     path: .
     targetRevision: HEAD
     directory:

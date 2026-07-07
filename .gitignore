@@ -1,2 +1,3 @@
 /apps/**/charts
 *secret.yaml
+/system/**/charts
