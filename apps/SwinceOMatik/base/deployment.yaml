@@ -24,7 +24,7 @@ spec:
             - secretRef:
                 name: swinceomatik-secrets
           readinessProbe:
-	    exec:
+            exec:
               command:
               - cat
               - /tmp/ready
