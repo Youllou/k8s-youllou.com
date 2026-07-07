@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-statefulset
+  namespace: swinceomatik
+spec:
+  selector:
+    app: mysql-statefulset
+  ports:
+    - port: 3306
+      targetPort: 3306
+  clusterIP: None   # headless, standard for StatefulSets

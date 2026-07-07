@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: swinceomatik
+  annotations:
+    kube-score/ignore: pod-networkpolicy,container-image-tag
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: swinceomatik
+  template:
+    metadata:
+      labels:
+        app: swinceomatik
+    spec:
+      imagePullSecrets:
+        - name: ghcr-deploy-token
+      containers:
+        - name: swinceomatik
+          image: ghcr.io/youllou/swinceomatik:latest
+          imagePullPolicy: Always
+          envFrom:
+            - secretRef:
+                name: swinceomatik-secrets
+          readinessProbe:
+	    exec:
+              command:
+              - cat
+              - /tmp/ready
+            initialDelaySeconds: 30
+            periodSeconds: 10
+
