@@ -6,7 +6,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "0"
 spec:
-  project: ovh-vps
+  project: default
   source:
     repoURL: git@github.com:Youllou/k8s-youllou.com.git
     path: .
