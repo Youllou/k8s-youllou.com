@@ -23,11 +23,6 @@ spec:
                 secretKeyRef:
                   name: swinceomatik-secrets
                   key: MYSQL_ROOT_PASSWORD
-            - name: MYSQL_DATABASE
-              valueFrom:
-                secretKeyRef:
-                  name: swinceomatik-secrets
-                  key: MYSQL_DATABASE
           ports:
             - containerPort: 3306
           volumeMounts:
