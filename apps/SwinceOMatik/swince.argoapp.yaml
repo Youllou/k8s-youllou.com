@@ -14,7 +14,7 @@ spec:
   source:
     repoURL: git@github.com:Youllou/k8s-youllou.com.git
     targetRevision: main
-    path: apps/SwinceOMatik/base
+    path: apps/SwinceOMatik/prod
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
