@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rmbsndb-backend
+  annotations:
+    kube-score/ignore: pod-networkpolicy,container-image-tag
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: roombasedsoundboard
+  template:
+    metadata:
+      labels:
+        app: roombasedsoundboard
+    spec:
+      imagePullSecrets:
+        - name: ghcr-deploy-token
+      containers:
+        - name: rmbsndb-backend
+          image: ghcr.io/youllou/roombased_soundboard-backend:latest
+          imagePullPolicy: Always
+          envFrom:
+            - secretRef:
+                name: rmbsndb-secrets
+          #readinessProbe:
+          #  exec:
+          #    command:
+          #    - cat
+          #    - /tmp/ready
+          #  initialDelaySeconds: 30
+          #  periodSeconds: 10

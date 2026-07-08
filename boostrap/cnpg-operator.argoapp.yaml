@@ -1,0 +1,20 @@
+# argocd-cnpg-operator.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cloudnativepg-operator
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: cloudnative-pg
+    repoURL: https://github.io
+    targetRevision: 0.23.0 # Use the latest stable version
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cnpg-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    createNamespace: true

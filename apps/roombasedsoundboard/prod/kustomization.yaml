@@ -1,0 +1,24 @@
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: rmbsndb
+resources:
+  - ../base
+  - pgsql
+  - redis
+  - s3
+  - secret.yaml
+  - ingress.yaml
+patches:
+  - target:
+      kind: Deployment
+      name: rmbsndb-backend
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env
+        value:
+          - name: DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: rmbsndb-pg-app
+                key: uri

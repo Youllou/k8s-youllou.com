@@ -1,0 +1,26 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: rmbsndb-pg
+spec:
+  instances: 3
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.3
+
+  # Single node: 3 pods can't spread across nodes, so "preferred" avoids
+  # them getting stuck Pending. Still gives pod-level self-healing/failover.
+  affinity:
+    podAntiAffinityType: preferred
+
+  storage:
+    size: 2Gi
+    storageClass: local-path
+
+  bootstrap:
+    initdb:
+      database: soundboard
+      owner: soundboard
+
+# Namespace is set by the prod/ kustomization.yaml (namespace: rmbsndb),
+# so this Cluster and its auto-generated secret "rmbsndb-pg-app" both
+# land in the rmbsndb namespace alongside the backend — no cross-namespace
+# secret problem.
