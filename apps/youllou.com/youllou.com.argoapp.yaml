@@ -14,7 +14,7 @@ spec:
   source:
     repoURL: git@github.com:Youllou/k8s-youllou.com.git
     targetRevision: main
-    path: apps/youllou.com/base
+    path: apps/youllou.com/prod
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
