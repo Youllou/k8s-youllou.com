@@ -7,7 +7,6 @@ resources:
   - pgsql
   - redis
   - s3
-  - secret.yaml
   - ingress.yaml
 patches:
   - target:
