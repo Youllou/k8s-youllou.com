@@ -4,7 +4,7 @@ metadata:
   name: mysql-statefulset
   namespace: swinceomatik
 spec:
-  serviceName: mysql-scv
+  serviceName: mysql-svc
   replicas: 1
   selector:
     matchLabels:
