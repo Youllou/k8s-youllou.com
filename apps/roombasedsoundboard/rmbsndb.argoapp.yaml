@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
   annotations:
     argocd-image-updater.argoproj.io/image-list: |
-        backend=ghcr.io/youllou/roombased_soundboard-backend:latest
+        backend=ghcr.io/youllou/roombased_soundboard-backend:latest,
         frontend=ghcr.io/youllou/roombased_soundboard-frontend:latest
     argocd-image-updater.argoproj.io/backend.update-strategy: digest
     argocd-image-updater.argoproj.io/frontend.update-strategy: digest
