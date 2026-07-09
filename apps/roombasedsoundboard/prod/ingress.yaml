@@ -10,8 +10,35 @@ spec:
     - hosts:
         - soundboard.youllou.com
       secretName: rmbsndb-tls
+    - hosts:
+        - etscrap.xyz
+      secretName: rmbsndb-etscrap-tls
   rules:
     - host: soundboard.youllou.com
+      http:
+        paths:
+          - path: /ws
+            pathType: Prefix
+            backend:
+              service:
+                name: rmbsndb-backend
+                port:
+                  number: 8000
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: rmbsndb-backend
+                port:
+                  number: 8000
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: rmbsndb-frontend
+                port:
+                  number: 80
+    - host: etscrap.xyz
       http:
         paths:
           - path: /ws
