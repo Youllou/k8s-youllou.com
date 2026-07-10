@@ -9,10 +9,12 @@ spec:
   selector:
     matchLabels:
       app: roombasedsoundboard
+      component: frontend
   template:
     metadata:
       labels:
         app: roombasedsoundboard
+        component: frontend
     spec:
       imagePullSecrets:
         - name: ghcr-deploy-token
@@ -23,10 +25,3 @@ spec:
           envFrom:
             - secretRef:
                 name: rmbsndb-secrets
-          #readinessProbe:
-          #  exec:
-          #    command:
-          #    - cat
-          #    - /tmp/ready
-          #  initialDelaySeconds: 30
-          #  periodSeconds: 10

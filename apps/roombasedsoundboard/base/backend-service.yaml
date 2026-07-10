@@ -5,6 +5,7 @@ metadata:
 spec:
   selector:
     app: roombasedsoundboard
+    component: backend
   ports:
     - port: 8000
       targetPort: 8080
