@@ -9,10 +9,12 @@ spec:
   selector:
     matchLabels:
       app: roombasedsoundboard
+      component: backend
   template:
     metadata:
       labels:
         app: roombasedsoundboard
+        component: backend
     spec:
       imagePullSecrets:
         - name: ghcr-deploy-token
@@ -20,18 +22,29 @@ spec:
         - name: rmbsndb-backend
           image: ghcr.io/youllou/roombased_soundboard-backend:latest
           imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
           envFrom:
             - secretRef:
                 name: rmbsndb-secrets
-         readinessProbe:
-           httpGet:
-             path: /api/health
-             port: 8080
-           initialDelaySeconds: 3
-           periodSeconds: 5
-         livenessProbe:
-           httpGet:
-             path: /api/health
-             port: 8080
-           initialDelaySeconds: 10
-           periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
