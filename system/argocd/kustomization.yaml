@@ -4,7 +4,7 @@ namespace: argocd
 
 resources:
   - resources/ingress.yaml
-
+  - resources/configmap.yaml
 helmCharts:
 - name: argo-cd
   repo: oci://ghcr.io/argoproj/argo-helm
