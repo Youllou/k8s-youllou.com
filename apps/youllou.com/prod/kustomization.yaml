@@ -4,3 +4,26 @@ kind: Kustomization
 resources:
   - ingress.yaml
   - ../base/
+patches:
+  - target:
+      kind: Deployment
+      name: youllou-com
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env
+        value:
+          - name: githubToken
+            valueFrom:
+              secretKeyRef:
+                name: youllou-env
+                key: GITHUB_TOKEN
+          - name: ARGOCD_URL
+            valueFrom:
+              secretKeyRef:
+                name: youllou-env
+                key: ARGOCD_URL
+          - name: ARGOCD_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: youllou-env
+                key: ARGOCD_TOKEN
