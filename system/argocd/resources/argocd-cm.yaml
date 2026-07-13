@@ -1,9 +1,0 @@
-configMapGenerator:
-  - name: argocd-cm
-    namespace: argocd
-    behavior: merge
-    literals:
-      - accounts.website_user=apiKey, login
-
-generatorOptions:
-  disableNameSuffixHash: true

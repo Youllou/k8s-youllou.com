@@ -3,7 +3,28 @@ kind: Kustomization
 namespace: argocd
 
 resources:
-  - ./resources/
+  - resources/
+
+patches:
+  - patch: |-
+      apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: argocd-cm
+        namespace: argocd
+      data:
+        accounts.website_user: apiKey
+
+  - patch: |-
+      apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: argocd-rbac-cm
+        namespace: argocd
+      data:
+        policy.csv: |
+          p, website_user, applications, get, my-project/*, allow
+
 helmCharts:
 - name: argo-cd
   repo: oci://ghcr.io/argoproj/argo-helm
