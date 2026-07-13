@@ -5,14 +5,6 @@ namespace: argocd
 resources:
   - resources/ingress.yaml
 
-configMapGenerator:
-  - name: argocd-cm
-    namespace: argocd
-    behavior: merge
-    literals:
-      - accounts.website_user=apiKey, login
-      - accounts.alice.enabled=true
-
 helmCharts:
 - name: argo-cd
   repo: oci://ghcr.io/argoproj/argo-helm
