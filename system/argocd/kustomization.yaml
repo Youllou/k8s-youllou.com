@@ -23,7 +23,7 @@ patches:
         namespace: argocd
       data:
         policy.csv: |
-          p, website_user, applications, get, my-project/*, allow
+          p, website_user, applications, get, default/*, allow
           g, embed-user, role:readonly-embed
 helmCharts:
 - name: argo-cd
