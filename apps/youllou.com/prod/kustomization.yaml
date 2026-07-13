@@ -12,17 +12,17 @@ patches:
       - op: add
         path: /spec/template/spec/containers/0/env
         value:
-          - name: githubToken
+          - name: NUXT_GITHUB_TOKEN
             valueFrom:
               secretKeyRef:
                 name: youllou-env
                 key: githubToken
-          - name: ARGOCD_URL
+          - name: NUXT_ARGOCD_URL
             valueFrom:
               secretKeyRef:
                 name: youllou-env
                 key: ARGOCD_URL
-          - name: ARGOCD_TOKEN
+          - name: NUXT_ARGOCD_TOKEN
             valueFrom:
               secretKeyRef:
                 name: youllou-env
