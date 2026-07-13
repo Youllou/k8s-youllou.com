@@ -16,7 +16,7 @@ patches:
             valueFrom:
               secretKeyRef:
                 name: youllou-env
-                key: GITHUB_TOKEN
+                key: githubToken
           - name: ARGOCD_URL
             valueFrom:
               secretKeyRef:
