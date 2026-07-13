@@ -3,8 +3,7 @@ kind: Kustomization
 namespace: argocd
 
 resources:
-  - resources/ingress.yaml
-
+  - ./resources/
 helmCharts:
 - name: argo-cd
   repo: oci://ghcr.io/argoproj/argo-helm
