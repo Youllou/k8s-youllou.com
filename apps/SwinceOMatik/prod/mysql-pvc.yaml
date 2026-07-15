@@ -3,9 +3,12 @@ kind: PersistentVolumeClaim
 metadata:
   name: mysql-pvc
   namespace: swinceomatik
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
 spec:
   accessModes:
     - ReadWriteOnce
+  storageClassName: nfs-rwx
   resources:
     requests:
       storage: 2Gi
