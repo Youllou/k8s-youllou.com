@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - mysql-configmap.yaml
   - mysql-pvc.yaml
-  - mysql-pv-nsf.yaml
+  - mysql-pv-nfs.yaml
   - mysql-statefulset.yaml
   - service.yaml
   - ../base/
