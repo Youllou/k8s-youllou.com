@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: outline-config
+data:
+  NODE_ENV: production
+  URL: https://wiki.aeets.com
+  PORT: "3000"
+  FORCE_HTTPS: "true"
+  FILE_STORAGE: s3
+  FILE_STORAGE_UPLOAD_MAX_SIZE: "26214400"
+  AWS_REGION: us-east-1
+  AWS_S3_UPLOAD_BUCKET_NAME: outline-uploads
+  AWS_S3_UPLOAD_BUCKET_URL: http://outline-minio:9000
+  AWS_S3_FORCE_PATH_STYLE: "true"
+  AWS_S3_ACL: private
+  REDIS_URL: redis://outline-redis:6379

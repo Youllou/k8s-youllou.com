@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: outline-minio
+spec:
+  selector:
+    app: outline-minio
+  ports:
+    - name: api
+      port: 9000
+      targetPort: 9000
+    - name: console
+      port: 9001
+      targetPort: 9001

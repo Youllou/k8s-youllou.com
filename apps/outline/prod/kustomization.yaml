@@ -1,0 +1,23 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: wiki
+resources:
+  - ../base
+  - pgsql
+  - redis
+  - s3
+  - configmap.yaml
+  - ingress.yaml
+patches:
+  - target:
+      kind: Deployment
+      name: outline
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env
+        value:
+          - name: DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: outline-pg-app
+                key: uri
