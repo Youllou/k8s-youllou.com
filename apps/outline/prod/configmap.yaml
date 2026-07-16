@@ -4,7 +4,7 @@ metadata:
   name: outline-config
 data:
   NODE_ENV: production
-  URL: https://wiki.aeets.com
+  URL: https://wiki-aeets.youllou.com
   PORT: "3000"
   FORCE_HTTPS: "true"
   FILE_STORAGE: s3
