@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tasks
+  namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: backend=ghcr.io/youllou/tasks_backend:latest,frontend=ghcr.io/youllou/tasks_frontend:latest
+    argocd-image-updater.argoproj.io/backend.update-strategy: digest
+    argocd-image-updater.argoproj.io/frontend.update-strategy: digest
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: tasks
+  source:
+    repoURL: git@github.com:Youllou/k8s-youllou.com.git
+    targetRevision: main
+    path: apps/tasks/prod
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      selfHeal: true
+      prune: true

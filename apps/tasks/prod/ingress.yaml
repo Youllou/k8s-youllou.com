@@ -1,0 +1,34 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tasks
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - tasks.youllou.com
+        - api.tasks.youllou.com
+      secretName: tasks-tls
+  rules:
+    - host: tasks.youllou.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: tasks-frontend
+                port:
+                  number: 3000
+    - host: api.tasks.youllou.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: tasks-backend
+                port:
+                  number: 8000

@@ -1,0 +1,39 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: tasks-migrate
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded,HookFailed
+spec:
+  backoffLimit: 3
+  template:
+    spec:
+      restartPolicy: Never
+      imagePullSecrets:
+        - name: ghcr-deploy-token
+      containers:
+        - name: migrate
+          image: ghcr.io/youllou/tasks_backend:latest
+          command: ["alembic", "upgrade", "head"]
+          env:
+            - name: PGUSER
+              valueFrom:
+                secretKeyRef: { name: tasks-pg-app, key: user }
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef: { name: tasks-pg-app, key: password }
+            - name: PGHOST
+              valueFrom:
+                secretKeyRef: { name: tasks-pg-app, key: host }
+            - name: PGPORT
+              valueFrom:
+                secretKeyRef: { name: tasks-pg-app, key: port }
+            - name: PGDATABASE
+              valueFrom:
+                secretKeyRef: { name: tasks-pg-app, key: dbname }
+            - name: DATABASE_URL
+              value: "postgresql+asyncpg://$(PGUSER):$(PGPASSWORD)@$(PGHOST):$(PGPORT)/$(PGDATABASE)"
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef: { name: tasks-secrets, key: SECRET_KEY }

@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tasks-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tasks-backend
+  template:
+    metadata:
+      labels:
+        app: tasks-backend
+    spec:
+      imagePullSecrets:
+        - name: ghcr-deploy-token
+      containers:
+        - name: backend
+          image: ghcr.io/youllou/tasks_backend:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: PGUSER
+              valueFrom:
+                secretKeyRef: { name: tasks-pg-app, key: user }
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef: { name: tasks-pg-app, key: password }
+            - name: PGHOST
+              valueFrom:
+                secretKeyRef: { name: tasks-pg-app, key: host }
+            - name: PGPORT
+              valueFrom:
+                secretKeyRef: { name: tasks-pg-app, key: port }
+            - name: PGDATABASE
+              valueFrom:
+                secretKeyRef: { name: tasks-pg-app, key: dbname }
+            - name: DATABASE_URL
+              value: "postgresql+asyncpg://$(PGUSER):$(PGPASSWORD)@$(PGHOST):$(PGPORT)/$(PGDATABASE)"
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef: { name: tasks-secrets, key: SECRET_KEY }
+            - name: DEBUG
+              value: "false"
+            - name: CORS_ORIGIN
+              value: "https://tasks.youllou.com"
+          readinessProbe:
+            httpGet: { path: /health, port: 8000 }
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet: { path: /health, port: 8000 }
+            initialDelaySeconds: 15
+            periodSeconds: 15
+          resources:
+            requests: { cpu: 100m, memory: 128Mi }
+            limits: { cpu: 500m, memory: 256Mi }

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tasks-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tasks-frontend
+  template:
+    metadata:
+      labels:
+        app: tasks-frontend
+    spec:
+      imagePullSecrets:
+        - name: ghcr-deploy-token
+      containers:
+        - name: frontend
+          image: ghcr.io/youllou/tasks_frontend:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: NUXT_PUBLIC_API_BASE
+              value: "https://api.tasks.youllou.com"
+          readinessProbe:
+            httpGet: { path: /, port: 3000 }
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            requests: { cpu: 50m, memory: 128Mi }
+            limits: { cpu: 300m, memory: 256Mi }
